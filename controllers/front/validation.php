@@ -11,9 +11,9 @@
 class LatpayValidationModuleFrontController extends ModuleFrontController
 {
   public function init()
-   {
-     parent::init();
-   }
+  {
+    parent::init();
+  }
   public function initcontent()
   {
     parent::initContent();
