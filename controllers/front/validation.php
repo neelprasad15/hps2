@@ -16,8 +16,8 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
     }
     public function initcontent()
     {
-      parent::initContent();
-      $this->context->smarty->assign(
+        parent::initContent();
+        $this->context->smarty->assign(
         array(        
           'Merchant_User_Id' => Tools::getValue("Merchant_User_Id"),
           'merchantpwd' => Tools::getValue("merchantpwd"),
