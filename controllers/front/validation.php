@@ -12,13 +12,11 @@
 class LatpayValidationModuleFrontController extends ModuleFrontController
 {
 
-  public function init()
-  {
+  public function init(){
     parent::init();
   }
 
-  public function initcontent()
-  {
+  public function initcontent(){
     parent::initContent();
 
     $this->context->smarty->assign(
@@ -110,71 +108,71 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
             //         $customer->secure_key
             //     );
             $cart_id = (int)$this->context->cart->id;
-           $this->context->cart = new Cart($cart_id);
-           $duplicated_cart = $this->context->cart->duplicate();
-           $this->context->cart = $duplicated_cart['cart'];
-           $this->context->cookie->id_cart = (int)$this->context->cart->id;
-           Tools::redirect('index.php?controller=order&step=1');
-         }
-
-         //Post transtoken values to capture
-         if($transtokenval){
-          $url = 'https://lateralpayments.com/checkout/Checkout/Capture';
-
-          $data_json = json_encode($jsonData);
-
-          $ch = curl_init();
-          curl_setopt($ch, CURLOPT_URL, $url);
-          curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . Tools::strlen($data_json)));
-          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-          curl_setopt($ch, CURLOPT_POSTFIELDS,$data_json);
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          $response  = curl_exec($ch);
-          curl_close($ch);
-
-
-          $jdecode     = json_decode(Tools::stripslashes($response),true);
-          $status_code = $jdecode['Capture']['status']['StatusCode'];
-          $errorcode   = $jdecode['Capture']['status']['errorcode'];
-          $statusdesc  = $jdecode['Capture']['status']['errordesc'];
-
-
-          $cart_id = (int)$this->context->cart->id;
-          if ($status_code =='0') {
-            $this->module->validateOrder(
-              (int) $this->context->cart->id,
-              Configuration::get('PS_OS_PAYMENT'),
-              (float) $this->context->cart->getOrderTotal(true, Cart::BOTH),
-              $this->module->displayName,
-              null,
-              null,
-              (int) $this->context->currency->id,
-              false,
-              $customer->secure_key
-            );
-            Tools::redirect('index.php?controller=order-confirmation&id_cart='.(int)$cart->id.'&id_module='.(int)$this->module->id.'&id_order='.$this->module->currentOrder.'&key='.$customer->secure_key);
-          }elseif ($status_code =='1') {
-            $this->module->validateOrder(
-              (int) $this->context->cart->id,
-              Configuration::get('PS_OS_ERROR'),
-              (float) $this->context->cart->getOrderTotal(true, Cart::BOTH),
-              $this->module->displayName,
-              null,
-              null,
-              (int) $this->context->currency->id,
-              false,
-              $customer->secure_key
-            );
             $this->context->cart = new Cart($cart_id);
             $duplicated_cart = $this->context->cart->duplicate();
             $this->context->cart = $duplicated_cart['cart'];
             $this->context->cookie->id_cart = (int)$this->context->cart->id;
             Tools::redirect('index.php?controller=order&step=1');
           }
+
+         //Post transtoken values to capture
+          if($transtokenval){
+            $url = 'https://lateralpayments.com/checkout/Checkout/Capture';
+
+            $data_json = json_encode($jsonData);
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . Tools::strlen($data_json)));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$data_json);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response  = curl_exec($ch);
+            curl_close($ch);
+
+
+            $jdecode     = json_decode(Tools::stripslashes($response),true);
+            $status_code = $jdecode['Capture']['status']['StatusCode'];
+            $errorcode   = $jdecode['Capture']['status']['errorcode'];
+            $statusdesc  = $jdecode['Capture']['status']['errordesc'];
+
+
+            $cart_id = (int)$this->context->cart->id;
+            if ($status_code =='0') {
+              $this->module->validateOrder(
+                (int) $this->context->cart->id,
+                Configuration::get('PS_OS_PAYMENT'),
+                (float) $this->context->cart->getOrderTotal(true, Cart::BOTH),
+                $this->module->displayName,
+                null,
+                null,
+                (int) $this->context->currency->id,
+                false,
+                $customer->secure_key
+              );
+              Tools::redirect('index.php?controller=order-confirmation&id_cart='.(int)$cart->id.'&id_module='.(int)$this->module->id.'&id_order='.$this->module->currentOrder.'&key='.$customer->secure_key);
+            }elseif ($status_code =='1') {
+              $this->module->validateOrder(
+                (int) $this->context->cart->id,
+                Configuration::get('PS_OS_ERROR'),
+                (float) $this->context->cart->getOrderTotal(true, Cart::BOTH),
+                $this->module->displayName,
+                null,
+                null,
+                (int) $this->context->currency->id,
+                false,
+                $customer->secure_key
+              );
+              $this->context->cart = new Cart($cart_id);
+              $duplicated_cart = $this->context->cart->duplicate();
+              $this->context->cart = $duplicated_cart['cart'];
+              $this->context->cookie->id_cart = (int)$this->context->cart->id;
+              Tools::redirect('index.php?controller=order&step=1');
+            }
+          }
+
         }
-
       }
+
+
     }
-
-
-  }
