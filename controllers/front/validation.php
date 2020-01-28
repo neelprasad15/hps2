@@ -10,10 +10,12 @@
  */
 class LatpayValidationModuleFrontController extends ModuleFrontController
 {
-  public function init(){
+  public function init()
+  {
     parent::init();
   }
-  public function initcontent(){
+  public function initcontent()
+  {
     parent::initContent();
     $this->context->smarty->assign(
       array(
@@ -26,7 +28,8 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
       ));  
     $this->setTemplate('module:latpay/views/templates/front/validation.tpl');
   }
-  public function postProcess(){
+  public function postProcess()
+  {
     /**
          * Get current cart object from session
          */
