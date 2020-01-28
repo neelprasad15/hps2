@@ -23,6 +23,7 @@
     *  International Registered Trademark & Property of PrestaShop SA
     *}
 {extends file='page.tpl'}
+{block name='page_content'}
 
 
 <p>Please wait, A popup will appear soon...</p>
@@ -67,7 +68,6 @@ display: none;
 	<input type="submit" id="cancel_submit" value="submit" style="display: none">
 </form>	
 
-{block name='page_content'}
 
 <script type="text/javascript">
 	{literal}
