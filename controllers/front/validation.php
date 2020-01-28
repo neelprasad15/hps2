@@ -8,17 +8,13 @@
  * @link      https://www.latpay.com.au/
  *
  */
-
 class LatpayValidationModuleFrontController extends ModuleFrontController
 {
-
   public function init(){
     parent::init();
   }
-
   public function initcontent(){
     parent::initContent();
-
     $this->context->smarty->assign(
       array(
         'Merchant_User_Id' => Tools::getValue("Merchant_User_Id"),
@@ -28,13 +24,9 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
         'processurl' => Tools::getValue("processurl"),
         'merchant_ref_number' => Tools::getValue("merchant_ref_number")
       ));  
-
-
     $this->setTemplate('module:latpay/views/templates/front/validation.tpl');
   }
-
   public function postProcess(){
-
     /**
          * Get current cart object from session
          */
@@ -71,7 +63,6 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
         /**
          * Place the order
          */
-
         if ($_POST) {
           $token         = Tools::getValue("token");
           $transtokenval = Tools::getValue("transtokenval");
@@ -82,7 +73,6 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
           $datakey       = Tools::getValue("datakey");
           $description   = Tools::getValue("description");
           $reference     = Tools::getValue("reference");
-
           $jsonData = array(
             'transtoken'     => $transtokenval,
             'status'         => $status,
@@ -93,7 +83,6 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
             'description'    => $description,
             'reference'      => $reference
           );
-
           //Cancel order
           if ($token == "1") {
             // $this->module->validateOrder(
@@ -114,13 +103,10 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
             $this->context->cookie->id_cart = (int)$this->context->cart->id;
             Tools::redirect('index.php?controller=order&step=1');
           }
-
          //Post transtoken values to capture
           if($transtokenval){
             $url = 'https://lateralpayments.com/checkout/Checkout/Capture';
-
             $data_json = json_encode($jsonData);
-
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . Tools::strlen($data_json)));
@@ -129,14 +115,10 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $response  = curl_exec($ch);
             curl_close($ch);
-
-
             $jdecode     = json_decode(Tools::stripslashes($response),true);
             $status_code = $jdecode['Capture']['status']['StatusCode'];
             $errorcode   = $jdecode['Capture']['status']['errorcode'];
             $statusdesc  = $jdecode['Capture']['status']['errordesc'];
-
-
             $cart_id = (int)$this->context->cart->id;
             if ($status_code =='0') {
               $this->module->validateOrder(
@@ -170,9 +152,6 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
               Tools::redirect('index.php?controller=order&step=1');
             }
           }
-
         }
       }
-
-
     }
