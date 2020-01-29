@@ -8,7 +8,6 @@
  * @link      https://www.latpay.com.au/
  *
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -17,7 +16,6 @@ class Latpay extends PaymentModule
     private $html = '';
     private $postErrors = array();
     public $address;
-
     const LATPAY_CHECKOUT_URL = 'http://martfury.latdev.latpay.com.au/wp-content/plugins/hps/js/Latpay7.js';
     /**
      * latpay constructor.
@@ -73,29 +71,26 @@ class Latpay extends PaymentModule
          /**
          * If values have been submitted in the form, process.
          */
-         if (((bool)Tools::isSubmit('submitLatpay_hpsModule')) == true) {
+        if (((bool)Tools::isSubmit('submitLatpay_hpsModule')) == true) {
             $this->postProcess();
         }
         $this->context->smarty->assign('module_dir', $this->_path);
         $output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
         return $output.$this->renderForm();
     }
-
     public function hookHeader()
     {
         $this->context->controller->registerJavascript(
-                'jquery-local-script',
-                'modules/' . $this->name . './views/js/jquery-3.4.0.min.js',
-                ['position' => 'head', 'priority' => 9]
+            'jquery-local-script',
+            'modules/' . $this->name . './views/js/jquery-3.4.0.min.js',
+            ['position' => 'head', 'priority' => 9]
             );
-
-       $this->context->controller->registerJavascript(
+        $this->context->controller->registerJavascript(
           'remote-latpay-checkout',
-          self::LATPAY_CHECKOUT_URL,
-          ['server' => 'remote', 'position' => 'head', 'priority' => 10]
+           self::LATPAY_CHECKOUT_URL,
+           ['server' => 'remote', 'position' => 'head', 'priority' => 10]
       );              
-
-       $this->context->controller->addCSS($this->_path.'views/css/hpsstyle.css', 'all');
+        $this->context->controller->addCSS($this->_path.'views/css/hpsstyle.css', 'all');
    }
      /**
      * Create the form that will be displayed in the configuration of your module.
@@ -279,7 +274,6 @@ class Latpay extends PaymentModule
             'notifyurl'=> $nurl,
             'cancelurl'=> $curl,
         );
-
         $inputs = array();
         foreach ($values as $k => $v) {
             $inputs[$k] = array(
@@ -290,7 +284,6 @@ class Latpay extends PaymentModule
         }
         return $inputs;
     }
-
     public function hookPaymentReturn($params)
     {
         /**
