@@ -26,15 +26,15 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
               'processurl' => Tools::getValue("processurl"),
               'merchant_ref_number' => Tools::getValue("merchant_ref_number")
         ));
-      $this->setTemplate('module:latpay/views/templates/front/validation.tpl');
+        $this->setTemplate('module:latpay/views/templates/front/validation.tpl');
     }
-  public function postProcess()
+    public function postProcess()
     {
       /**
            * Get current cart object from session
            */
-      $cart = $this->context->cart;
-      $authorized = false;
+        $cart = $this->context->cart;
+        $authorized = false;
           /**
            * Verify if this module is enabled and if the cart has
            * a valid customer, delivery address and invoice address
