@@ -124,7 +124,7 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
                 $errorcode   = $jdecode['Capture']['status']['errorcode'];
                 $statusdesc  = $jdecode['Capture']['status']['errordesc'];
                 $cart_id = (int)$this->context->cart->id;
-              if ($status_code =='0') {
+            if ($status_code =='0') {
                 $this->module->validateOrder(
                     (int) $this->context->cart->id,
                     Configuration::get('PS_OS_PAYMENT'),
@@ -137,7 +137,7 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
                     $customer->secure_key
                 );
                 Tools::redirect('index.php?controller=order-confirmation&id_cart='.(int)$cart->id.'&id_module='.(int)$this->module->id.'&id_order='.$this->module->currentOrder.'&key='.$customer->secure_key);
-              } elseif ($status_code =='1') {
+            } elseif ($status_code =='1') {
                 $this->module->validateOrder(
                     (int) $this->context->cart->id,
                     Configuration::get('PS_OS_ERROR'),
@@ -154,8 +154,8 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
                 $this->context->cart = $duplicated_cart['cart'];
                 $this->context->cookie->id_cart = (int)$this->context->cart->id;
                 Tools::redirect('index.php?controller=order&step=1');
-              }
             }
-        }
+            }
+            }
     }
 }
