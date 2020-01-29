@@ -25,7 +25,8 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
               'amount' => Tools::getValue("amount"),
               'processurl' => Tools::getValue("processurl"),
               'merchant_ref_number' => Tools::getValue("merchant_ref_number")
-        ));
+            )
+        );
         $this->setTemplate('module:latpay/views/templates/front/validation.tpl');
     }
     public function postProcess()
