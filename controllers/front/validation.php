@@ -41,19 +41,19 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
            */
         if (!$this->module->active || $cart->id_customer == 0 || $cart->id_address_delivery == 0
           || $cart->id_address_invoice == 0) {
-          Tools::redirect('index.php?controller=order&step=1');
+            Tools::redirect('index.php?controller=order&step=1');
         }
           /**
            * Verify if this payment modules is authorized
            */
         foreach (Module::getPaymentModules() as $module) {
-          if ($module['name'] == 'latpay') {
-            $authorized = true;
-            break;
-          }
+            if ($module['name'] == 'latpay') {
+              $authorized = true;
+              break;
+            }
         }
         if (!$authorized) {
-          die($this->l('This payment method is not available.'));
+            die($this->l('This payment method is not available.'));
         }
         /** @var CustomerCore $customer */
         $customer = new Customer($cart->id_customer);
@@ -61,12 +61,12 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
          * Check if this is a vlaid customer account
          */
         if (!Validate::isLoadedObject($customer)) {
-          Tools::redirect('index.php?controller=order&step=1');
+            Tools::redirect('index.php?controller=order&step=1');
         }
           /**
            * Place the order
            */
-          if ($_POST) {
+            if ($_POST) {
             $token         = Tools::getValue("token");
             $transtokenval = Tools::getValue("transtokenval");
             $status        = Tools::getValue("status");
@@ -156,5 +156,5 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
               }
             }
           }
-        }
+          }
     }
