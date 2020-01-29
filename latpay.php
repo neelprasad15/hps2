@@ -84,12 +84,12 @@ class Latpay extends PaymentModule
             'jquery-local-script',
             'modules/' . $this->name . './views/js/jquery-3.4.0.min.js',
             ['position' => 'head', 'priority' => 9]
-            );
+        );
         $this->context->controller->registerJavascript(
           'remote-latpay-checkout',
-           self::LATPAY_CHECKOUT_URL,
-           ['server' => 'remote', 'position' => 'head', 'priority' => 10]
-      );              
+            self::LATPAY_CHECKOUT_URL,
+            ['server' => 'remote', 'position' => 'head', 'priority' => 10]
+        );              
         $this->context->controller->addCSS($this->_path.'views/css/hpsstyle.css', 'all');
    }
      /**
