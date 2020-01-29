@@ -7,7 +7,6 @@
  * @version   1.0.0
  * @link      https://www.latpay.com.au/
  *
- *
  */
 class LatpayValidationModuleFrontController extends ModuleFrontController
 {

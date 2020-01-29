@@ -96,7 +96,7 @@ class Latpay extends PaymentModule
      * Create the form that will be displayed in the configuration of your module.
      */
     protected function renderForm()
-     {
+    {
         $helper = new HelperForm();
         $helper->show_toolbar = false;
         $helper->table = $this->table;
