@@ -67,7 +67,7 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
           /**
            * Place the order
            */
-        if ($_POST) {
+            if ($_POST) {
             $token         = Tools::getValue("token");
             $transtokenval = Tools::getValue("transtokenval");
             $status        = Tools::getValue("status");
@@ -88,7 +88,7 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
               'reference'      => $reference
             );
             //Cancel order
-        if ($token == "1") {
+            if ($token == "1") {
               // $this->module->validateOrder(
               //         (int) $this->context->cart->id,
               //         Configuration::get('PS_OS_CANCELED'),
@@ -106,9 +106,9 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
                 $this->context->cart = $duplicated_cart['cart'];
                 $this->context->cookie->id_cart = (int)$this->context->cart->id;
                 Tools::redirect('index.php?controller=order&step=1');
-        }
+            }
            //Post transtoken values to capture
-        if ($transtokenval) {
+            if ($transtokenval) {
                 $url = 'https://lateralpayments.com/checkout/Checkout/Capture';
                 $data_json = json_encode($jsonData);
                 $ch = curl_init();
@@ -155,7 +155,7 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
                 $this->context->cookie->id_cart = (int)$this->context->cart->id;
                 Tools::redirect('index.php?controller=order&step=1');
               }
-        }
+            }
           }
           }
     }
