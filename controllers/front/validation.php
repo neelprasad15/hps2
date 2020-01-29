@@ -126,28 +126,28 @@ class LatpayValidationModuleFrontController extends ModuleFrontController
                 $cart_id = (int)$this->context->cart->id;
                 if ($status_code =='0') {
                     $this->module->validateOrder(
-                    (int) $this->context->cart->id,
-                    Configuration::get('PS_OS_PAYMENT'),
-                    (float) $this->context->cart->getOrderTotal(true, Cart::BOTH),
-                    $this->module->displayName,
-                    null,
-                    null,
-                    (int) $this->context->currency->id,
-                    false,
-                    $customer->secure_key
-                );
-                Tools::redirect('index.php?controller=order-confirmation&id_cart='.(int)$cart->id.'&id_module='.(int)$this->module->id.'&id_order='.$this->module->currentOrder.'&key='.$customer->secure_key);
+                        (int) $this->context->cart->id,
+                        Configuration::get('PS_OS_PAYMENT'),
+                        (float) $this->context->cart->getOrderTotal(true, Cart::BOTH),
+                        $this->module->displayName,
+                        null,
+                        null,
+                        (int) $this->context->currency->id,
+                        false,
+                        $customer->secure_key
+                    );
+                    Tools::redirect('index.php?controller=order-confirmation&id_cart='.(int)$cart->id.'&id_module='.(int)$this->module->id.'&id_order='.$this->module->currentOrder.'&key='.$customer->secure_key);
                 } elseif ($status_code =='1') {
                     $this->module->validateOrder(
-                    (int) $this->context->cart->id,
-                    Configuration::get('PS_OS_ERROR'),
-                    (float) $this->context->cart->getOrderTotal(true, Cart::BOTH),
-                    $this->module->displayName,
-                    null,
-                    null,
-                    (int) $this->context->currency->id,
-                    false,
-                    $customer->secure_key
+                      (int) $this->context->cart->id,
+                      Configuration::get('PS_OS_ERROR'),
+                      (float) $this->context->cart->getOrderTotal(true, Cart::BOTH),
+                      $this->module->displayName,
+                      null,
+                      null,
+                      (int) $this->context->currency->id,
+                      false,
+                      $customer->secure_key
                     );
                     $this->context->cart = new Cart($cart_id);
                     $duplicated_cart = $this->context->cart->duplicate();
