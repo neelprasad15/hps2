@@ -8,6 +8,7 @@
  * @link      https://www.latpay.com.au/
  *
  */
+
 class LatpayValidationModuleFrontController extends ModuleFrontController
 {
     public function init()
