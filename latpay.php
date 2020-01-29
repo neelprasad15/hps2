@@ -86,16 +86,16 @@ class Latpay extends PaymentModule
             ['position' => 'head', 'priority' => 9]
         );
         $this->context->controller->registerJavascript(
-          'remote-latpay-checkout',
+            'remote-latpay-checkout',
             self::LATPAY_CHECKOUT_URL,
             ['server' => 'remote', 'position' => 'head', 'priority' => 10]
-        );              
+        );
         $this->context->controller->addCSS($this->_path.'views/css/hpsstyle.css', 'all');
-   }
+    }
      /**
      * Create the form that will be displayed in the configuration of your module.
      */
-     protected function renderForm()
+    protected function renderForm()
      {
         $helper = new HelperForm();
         $helper->show_toolbar = false;
